@@ -14,12 +14,17 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * MainActivity controls the main screen of the app.
+ * It handles button clicks, stores emotion logs,
+ * and displays either a log list or a summary.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    // Data storage
+    // Stores all emotion log entries
     private ArrayList<EmoticonLog> logs;
 
-    // UI elements
+    // TextView used to display logs or summary
     private TextView displayTextView;
     private boolean showingSummary = false;
 
@@ -39,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setupActionButtons();
     }
 
+    /**
+     * Sets up all emotion buttons and assigns
+     * each one an emotion to log when clicked.
+     */
     private void setupEmoticonButtons() {
         // Happy button
         Button btnHappy = findViewById(R.id.btnHappy);
@@ -122,6 +131,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up buttons that perform actions
+     * like switching views or clearing logs.
+     */
     private void setupActionButtons() {
         // View Summary button
         Button btnViewSummary = findViewById(R.id.btnViewSummary);
@@ -142,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds a new emotion log and refreshes the display.
+     */
     private void addLog(String emoticon, String emotionName) {
         logs.add(new EmoticonLog(emoticon, emotionName));
 
@@ -152,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Switches between log view and summary view.
+     */
     private void toggleView() {
         showingSummary = !showingSummary;
 
@@ -166,6 +185,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Displays all emotion logs in reverse order
+     * (newest entries first).
+     */
     private void displayLogs() {
         if (logs.isEmpty()) {
             displayTextView.setText("No logs yet. Tap an emotion above to start!");
@@ -185,9 +208,15 @@ public class MainActivity extends AppCompatActivity {
         displayTextView.setText(text.toString());
     }
 
+    /**
+     * Displays a summary showing how often
+     * each emotion was logged.
+     */
     private void displaySummary() {
         if (logs.isEmpty()) {
-            displayTextView.setText("No logs yet!\n\nStart tracking your emotions by tapping the emoticon buttons above.");
+            displayTextView.setText(
+                    "No logs yet!\n\nStart tracking your emotions by tapping the emoticon buttons above."
+            );
             return;
         }
 
@@ -223,6 +252,9 @@ public class MainActivity extends AppCompatActivity {
         displayTextView.setText(text.toString());
     }
 
+    /**
+     * Removes all stored emotion logs.
+     */
     private void clearLogs() {
         logs.clear();
 
@@ -233,6 +265,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns today's date in a readable format.
+     */
     private String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         return sdf.format(new Date());
